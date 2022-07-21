@@ -1,6 +1,6 @@
 # Reading Simple Configuration
 
-Say we've got an application called `neato` that has a simple configuration file that looks like this:
+Say we've got an application called that has a simple configuration file that looks like this:
 
 ```yaml
 logLevel: debug
