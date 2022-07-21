@@ -1,0 +1,159 @@
+# Reading Complex Configuration
+
+So we've already got a simple way to read in a file from disk and map it to a
+struct in Go, allowing us to make decisions based on the user's configuration.
+
+What if we want the user to be able to pass us JSON instead of YAML? Well that's
+not too bad. We just add a few more struct tags like this:
+
+```go
+type Configuration struct {
+	LogLevel             string `yaml:"logLevel" json:"loglevel"`
+	MagicFeatureEnabled  bool   `yaml:"magicFeatureEnabled" json:"magicFeatureEnabled"`
+	SomethingNeatEnabled bool   `yaml:"somethingNeatEnabled" json:"somethingNeatEnabled"`
+}
+```
+
+And then we can just the [encoding/json](https://pkg.go.dev/encoding/json)
+library which also has an `Unmarshal` function. Reading a file from disk has
+already been done, so we'd just need to read the file at both a `config.json` or
+`config.yaml` path and then repeat the process as we did with the YAML
+configuration. Easy peasy.
+
+---
+
+These days, environment variables are all the rage. They're easy to change in
+continuous integration, test environments, etc. So let's add an environment
+variable for each of these... something like:
+
+```go
+const (
+	EnvLogLevel             = "NEATO_LOG_LEVEL"
+	EnvMagicFeatureEnabled  = "NEATO_MAGIC_FEATURE_ENABLED"
+	EnvSomethingNeatEnabled = "NEATO_SOMETHING_NEAT_ENABLED"
+)
+```
+
+So these are our environment variable keys, and so we need to look for each of
+them. In our example `neato` application, we'll enforce that environment
+variables override the configuration file. Establishing and documenting
+precedence is important, so that users know exactly how and why a value is being
+overridden! 
+
+So now our `main.go` has to handle the precedence, so we'll read the
+configuration first, and then we'll read the environment.
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+	"strings"
+
+	"gopkg.in/yaml.v3"
+)
+
+const (
+	EnvLogLevel             = "NEATO_LOG_LEVEL"
+	EnvMagicFeatureEnabled  = "NEATO_MAGIC_FEATURE_ENABLED"
+	EnvSomethingNeatEnabled = "NEATO_SOMETHING_NEAT_ENABLED"
+)
+
+func main() {
+	// read the configuration file from disk and store it in our struct.
+	d, _ := os.ReadFile("config.yaml")
+	var cfg Configuration
+	yaml.Unmarshal(d, &cfg)
+
+	// override the configuration with environment variables
+	if key := os.Getenv(EnvLogLevel); key != "" {
+		cfg.LogLevel = key
+	}
+
+	if key := os.Getenv(EnvMagicFeatureEnabled); key != "" {
+		envValue := false
+		if strings.ToLower(key) == "true" {
+			envValue = true
+		}
+
+		cfg.MagicFeatureEnabled = envValue
+	}
+
+	if key := os.Getenv(EnvSomethingNeatEnabled); key != "" {
+		envValue := false
+		if strings.ToLower(key) == "true" {
+			envValue = true
+		}
+
+		cfg.SomethingNeatEnabled = envValue
+	}
+
+	// run our business logic
+	fmt.Println("The Log Level is: ", cfg.LogLevel)
+	fmt.Println("We are using the Magic Feature: ", cfg.MagicFeatureEnabled)
+	fmt.Println("We are using Something Neat ", cfg.SomethingNeatEnabled)
+}
+
+type Configuration struct {
+	LogLevel             string `yaml:"logLevel" json:"loglevel"`
+	MagicFeatureEnabled  bool   `yaml:"magicFeatureEnabled" json:"magicFeatureEnabled"`
+	SomethingNeatEnabled bool   `yaml:"somethingNeatEnabled" json:"somethingNeatEnabled"`
+}
+```
+
+Without modifying the environment, our output looks like this (values from our
+configuration file):
+
+```
+$ go run .
+The Log Level is:  debug
+We are using the Magic Feature:  true
+We are using Something Neat  false
+```
+
+But if we modify our environment, we see that our environment's values win out
+over the configuration file.
+```
+$ NEATO_LOG_LEVEL=info go run .
+The Log Level is:  info
+We are using the Magic Feature:  true
+We are using Something Neat  false
+```
+
+---
+
+So far, things have been pretty simple! But more than half of our main.go file
+is focused on handling our configuration... and we haven't even scratched the
+surface!
+
+What if we wanted to have more complex configurations, with maps or arrays?
+
+```yaml
+logging:
+	level: debug
+	file: /var/log/neato.log
+magicFeature:
+	enabled: true
+	backends:
+	- awesome.example.com:8080
+	- epic.example.com:8080
+somethingNeat: 
+	enabled: true
+	endpoint: https://neat.example.com/v1/	
+```
+
+Building out a struct in Go is simple enough, but now each of these keys needs a
+corresponding environment variable. And for each environment variable, we'll need to
+build out logic that replaces the values read in from our config file with the values 
+read in from the environment.
+
+What about default values? If the user didn't provide a value, but we need it to
+run our logic, it stands to reason that a sane default should be used. We'll
+need to codify that default either by building out a `DefaultConfig` out of our
+`Configuration` struct, reading a default from disk, or really any other way
+that you can architect your solution.
+
+None of these problems are too complex to solve on your own, but the Viper
+library aims to help speed up your development by giving you simple hooks that
+solve this problem without having to write your own code to do so.

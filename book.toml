@@ -1,0 +1,6 @@
+[book]
+authors = ["Jose R. Gonzalez"]
+language = "en"
+multilingual = false
+src = "book-source"
+title = "A Primer on Viper"

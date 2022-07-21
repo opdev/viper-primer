@@ -1,0 +1,9 @@
+backends = ['192.168.10.01:8001', '192.168.10.01:8002', '192.168.10.01:8003', '192.168.10.01:8004']
+enablelogging = true
+loglevel = 'debug'
+os = 'centos'
+workers = 4
+[metrics]
+listenaddress = '127.0.0.1'
+listenport = 9999
+
