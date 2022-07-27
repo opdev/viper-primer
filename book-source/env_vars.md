@@ -44,14 +44,15 @@ func init() {
 
 Now our environment variables must have the `CP_` prefix, e.g. `CP_LOGLEVEL`.
 
-```shell
-# nothing happened
-$ LOGLEVEL=info go run .
-The log level is set to: debug
-...
-
-# it changed
+```bash
 $ CP_LOGLEVEL=info go run .
 The log level is set to: info
+...
+```
+
+```bash
+Without the prefix, the value is ignored.
+$ LOGLEVEL=info go run .
+The log level is set to: debug
 ...
 ```

@@ -10,7 +10,7 @@ module) called **backends**, and I'll write a small function that enumerates my
 
 I'm running this from my project's base directory.
 
-```shell
+```bash
 mkdir backends
 echo package backends >> backends/backends.go
 ```
@@ -56,7 +56,7 @@ func main() {
 
 And the result is as expected!
 
-```shell
+```bash
 $ go run .
 # ... unchanged ...
 Hello from the backends package!

@@ -7,11 +7,17 @@ The Viper library makes a
 itself is responsible for implementing all of the logic we've called so far.
 
 That includes:
-    - setting our configfile name to `config`
-    - setting our extension to `yaml`
-    - setting the path to `.` or "my current directory"
-    - reading in the configuration file at the the above path
-    - getting values from the configuration file read from that path
+
+- setting our configfile name to `config`
+
+- setting our extension to `yaml`
+
+- setting the path to `.` or "my current directory"
+
+- reading in the configuration file at the the above path
+
+- getting values from the configuration file read from that path
+
 
 But we didn't create any instances of Viper! That's because the viper library
 itself provides a "global" or "singleton" instance of the `Viper` struct (seen

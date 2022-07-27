@@ -20,7 +20,7 @@ func main() {
 
 This produces:
 
-```shell
+```bash
 $ go run .
 # ... unchanged ...
 the worker count is 0

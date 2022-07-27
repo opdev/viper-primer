@@ -1,6 +1,6 @@
 # Reading Simple Configuration
 
-Say we've got an application called that has a simple configuration file that looks like this:
+Say we've got an application that has a simple configuration file that looks like this:
 
 ```yaml
 logLevel: debug
@@ -21,8 +21,6 @@ type Configuration struct {
 And these struct tags on each key of the `Configuration` struct are read by tools like the [go-yaml](https://github.com/go-yaml/yaml.git) library to map the data in our YAML file to the struct in our code. Reading this file is as easy as this:
 
 ```Go
-// You can edit this code!
-// Click here and start typing.
 package main
 
 import (

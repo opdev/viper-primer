@@ -135,7 +135,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="reading-simple-configuration"><a class="header" href="#reading-simple-configuration">Reading Simple Configuration</a></h1>
-<p>Say we've got an application called that has a simple configuration file that looks like this:</p>
+<p>Say we've got an application that has a simple configuration file that looks like this:</p>
 <pre><code class="language-yaml">logLevel: debug
 magicFeatureEnabled: true
 somethingNeatEnabled: false
@@ -148,9 +148,7 @@ somethingNeatEnabled: false
 }
 </code></pre>
 <p>And these struct tags on each key of the <code>Configuration</code> struct are read by tools like the <a href="https://github.com/go-yaml/yaml.git">go-yaml</a> library to map the data in our YAML file to the struct in our code. Reading this file is as easy as this:</p>
-<pre><code class="language-Go">// You can edit this code!
-// Click here and start typing.
-package main
+<pre><code class="language-Go">package main
 
 import (
 	&quot;fmt&quot;

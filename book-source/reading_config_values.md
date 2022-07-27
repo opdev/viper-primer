@@ -9,7 +9,7 @@ doesn't require the use of any structs or defined types in your code.
 
 Let's add the `logLevel` key to our configuration.
 
-```shell
+```bash
 echo logLevel: debug >> config.yaml
 ```
 

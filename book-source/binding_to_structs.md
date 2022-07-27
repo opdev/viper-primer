@@ -27,7 +27,7 @@ func main() {
 Your struct then contains the configuration values for use in whatever functions
 you might have.
 
-```shell
+```bash
 $ go run .
 # ... previous output omitted ...
 metricsConf ListenAddress 127.0.0.1

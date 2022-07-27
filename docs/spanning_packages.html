@@ -142,7 +142,7 @@ you've already executed your viper initialization when you work with your other 
 module) called <strong>backends</strong>, and I'll write a small function that enumerates my
 <code>backends</code>.</p>
 <p>I'm running this from my project's base directory.</p>
-<pre><code class="language-shell">mkdir backends
+<pre><code class="language-bash">mkdir backends
 echo package backends &gt;&gt; backends/backends.go
 </code></pre>
 <p>I have this sample function <code>Enumerate</code>. The logic isn't super important.</p>
@@ -178,7 +178,7 @@ called.</p>
 }
 </code></pre>
 <p>And the result is as expected!</p>
-<pre><code class="language-shell">$ go run .
+<pre><code class="language-bash">$ go run .
 # ... unchanged ...
 Hello from the backends package!
 0: 192.168.10.01:8001

@@ -198,7 +198,7 @@ flag's key, but mapping the values similarly is common.
 
 Now, we see our Viper configuration contains the value of our flag.
 
-```shell
+```bash
 $ go run . --toggle
 Run executed
 The toggle flag is set to:  true

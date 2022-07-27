@@ -6,7 +6,7 @@ the Viper library calls and so we won't really do much business logic other than
 just printing out our values. If you want to follow along, create a directory
 called `configprinter` and install Viper into this path.
 
-```shell
+```bash
 # create the directory and change into it
 mkdir configprinter
 cd configprinter

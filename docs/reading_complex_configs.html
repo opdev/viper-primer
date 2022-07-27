@@ -145,23 +145,24 @@ not too bad. We just add a few more struct tags like this:</p>
 	SomethingNeatEnabled bool   `yaml:&quot;somethingNeatEnabled&quot; json:&quot;somethingNeatEnabled&quot;`
 }
 </code></pre>
-<p>And then we can just the <a href="https://pkg.go.dev/encoding/json">encoding/json</a>
+<p>And then we can use the <a href="https://pkg.go.dev/encoding/json">encoding/json</a>
 library which also has an <code>Unmarshal</code> function. Reading a file from disk has
 already been done, so we'd just need to read the file at both a <code>config.json</code> or
 <code>config.yaml</code> path and then repeat the process as we did with the YAML
-configuration. Easy peasy.</p>
-<hr />
+configuration.</p>
+<p>Easy peasy.</p>
+<h2 id="accepting-configuration-through-environment"><a class="header" href="#accepting-configuration-through-environment">Accepting configuration through environment</a></h2>
 <p>These days, environment variables are all the rage. They're easy to change in
 continuous integration, test environments, etc. So let's add an environment
 variable for each of these... something like:</p>
 <pre><code class="language-go">const (
-	EnvLogLevel             = &quot;NEATO_LOG_LEVEL&quot;
-	EnvMagicFeatureEnabled  = &quot;NEATO_MAGIC_FEATURE_ENABLED&quot;
-	EnvSomethingNeatEnabled = &quot;NEATO_SOMETHING_NEAT_ENABLED&quot;
+	EnvLogLevel             = &quot;MYAPP_LOG_LEVEL&quot;
+	EnvMagicFeatureEnabled  = &quot;MYAPP_MAGIC_FEATURE_ENABLED&quot;
+	EnvSomethingNeatEnabled = &quot;MYAPP_SOMETHING_NEAT_ENABLED&quot;
 )
 </code></pre>
 <p>So these are our environment variable keys, and so we need to look for each of
-them. In our example <code>neato</code> application, we'll enforce that environment
+them. In our example application, we'll enforce that environment
 variables override the configuration file. Establishing and documenting
 precedence is important, so that users know exactly how and why a value is being
 overridden! </p>
@@ -178,9 +179,9 @@ import (
 )
 
 const (
-	EnvLogLevel             = &quot;NEATO_LOG_LEVEL&quot;
-	EnvMagicFeatureEnabled  = &quot;NEATO_MAGIC_FEATURE_ENABLED&quot;
-	EnvSomethingNeatEnabled = &quot;NEATO_SOMETHING_NEAT_ENABLED&quot;
+	EnvLogLevel             = &quot;MYAPP_LOG_LEVEL&quot;
+	EnvMagicFeatureEnabled  = &quot;MYAPP_MAGIC_FEATURE_ENABLED&quot;
+	EnvSomethingNeatEnabled = &quot;MYAPP_SOMETHING_NEAT_ENABLED&quot;
 )
 
 func main() {
@@ -233,7 +234,7 @@ We are using Something Neat  false
 </code></pre>
 <p>But if we modify our environment, we see that our environment's values win out
 over the configuration file.</p>
-<pre><code>$ NEATO_LOG_LEVEL=info go run .
+<pre><code>$ MYAPP_LOG_LEVEL=info go run .
 The Log Level is:  info
 We are using the Magic Feature:  true
 We are using Something Neat  false
@@ -245,7 +246,7 @@ surface!</p>
 <p>What if we wanted to have more complex configurations, with maps or arrays?</p>
 <pre><code class="language-yaml">logging:
 	level: debug
-	file: /var/log/neato.log
+	file: /var/log/myapp.log
 magicFeature:
 	enabled: true
 	backends:

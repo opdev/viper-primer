@@ -16,7 +16,7 @@ func init() {
 
 Now, the `metrics.listenAddress` path can be accessed at the environment. Don't forget the prefix!
 
-```shell
+```bash
 $ CP_METRICS_LISTENADDRESS=localhost go run .
 The log level is set to: debug
 logging is enabled: true
@@ -27,7 +27,7 @@ Here are all the backends: [192.168.10.01:8001 192.168.10.01:8002 192.168.10.01:
 
 You can also change the `backends` array. Just separate your items with spaces:
 
-```shell
+```bash
 $ CP_BACKENDS="10.0.0.1:8001 10.0.0.1:8002" go run .
 The log level is set to: debug
 logging is enabled: true

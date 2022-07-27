@@ -139,12 +139,24 @@
 <p>The Viper library makes a
 <a href="https://github.com/spf13/viper/blob/v1.12.0/viper.go#L181">Viper</a> type, which
 itself is responsible for implementing all of the logic we've called so far.</p>
-<p>That includes:
-- setting our configfile name to <code>config</code>
-- setting our extension to <code>yaml</code>
-- setting the path to <code>.</code> or &quot;my current directory&quot;
-- reading in the configuration file at the the above path
-- getting values from the configuration file read from that path</p>
+<p>That includes:</p>
+<ul>
+<li>
+<p>setting our configfile name to <code>config</code></p>
+</li>
+<li>
+<p>setting our extension to <code>yaml</code></p>
+</li>
+<li>
+<p>setting the path to <code>.</code> or &quot;my current directory&quot;</p>
+</li>
+<li>
+<p>reading in the configuration file at the the above path</p>
+</li>
+<li>
+<p>getting values from the configuration file read from that path</p>
+</li>
+</ul>
 <p>But we didn't create any instances of Viper! That's because the viper library
 itself provides a &quot;global&quot; or &quot;singleton&quot; instance of the <code>Viper</code> struct (seen
 <a href="https://github.com/spf13/viper/blob/v1.12.0/viper.go#L63">here</a>) This is purely

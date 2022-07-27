@@ -19,7 +19,7 @@ func init() {
 
 Run the code and see that the default value is returned:
 
-```shell
+```bash
 $ go run .
 # ... unchanged ...
 The os is centos

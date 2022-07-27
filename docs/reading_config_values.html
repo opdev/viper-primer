@@ -141,7 +141,7 @@ is it reading?</p>
 <p>When using viper, access to your configuration values is pretty free-form, and
 doesn't require the use of any structs or defined types in your code.</p>
 <p>Let's add the <code>logLevel</code> key to our configuration.</p>
-<pre><code class="language-shell">echo logLevel: debug &gt;&gt; config.yaml
+<pre><code class="language-bash">echo logLevel: debug &gt;&gt; config.yaml
 </code></pre>
 <p>And at the very bottom of our <code>main()</code> function, we'll add a print statement
 that queries from Viper the value of our <code>logLevel</code> key.</p>
